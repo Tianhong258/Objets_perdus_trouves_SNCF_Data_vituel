@@ -4,6 +4,12 @@ html, body {
     height: 100%;
 }
 
+body {
+    font-family: 'Inter', sans-serif; /* Use 'sans-serif' as a fallback in case 'Inter' isn't available */
+    font-weight: 500; /* Specify the desired font-weight */
+    font-size: 15px;
+}
+
 .landing, 
 .second-screen{
     height: 100vh;
