@@ -117,10 +117,10 @@ body {
     width: 304px;
     color: #FFF;
     text-align: center;
-    font-family: Achemine-Italic;
+    font-family: 'Achemine-Italic', sans-serif;
     font-size: 30px;
-    font-style: normal;
-    font-weight: 400;
+    font-style: italic;
+    font-weight: normal;
     line-height: normal;
 }
 
