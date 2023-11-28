@@ -6,6 +6,25 @@ function getTodaysDate() {
 
     return `${year}-${month}-${day}`;
 }
+//rafraichir toutet les secondes
+function refresh(){
+    var t = 1000; // rafraîchissement en millisecondes
+    setTimeout('getTodayHour()',t)
+}
+//obtenir l’heure
+function getTodayHour() {
+let currentTime = new Date()
+
+let diplayHour = document.querySelector(".gethour").innerHTML =
+ String (currentTime.getHours()).padStart(2, '0') + 
+":" + String(currentTime.getMinutes()).padStart(2, '0')
+console.log(diplayHour)
+let diplaySecondes = document.querySelector(".clock_seconds");
+diplaySecondes.innerHTML = String(currentTime.getSeconds()).padStart(2, '0');
+
+refresh()
+}
+getTodayHour()
 
 function updateItemCount(elementId, count) {
     document.getElementById(elementId).textContent = count;
