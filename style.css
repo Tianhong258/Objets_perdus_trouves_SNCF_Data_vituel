@@ -369,10 +369,10 @@ body {
 
 .exit_subtitle {
     color: #FFF;
-    font-family: Achemine-Italic;
+    font-family: 'Achemine-Italic', sans-serif;
     font-size: 40px;
-    font-style: normal;
-    font-weight: 400;
+    font-style: italic;
+    font-weight: normal;
     line-height: normal;
     margin: 0px;
 }
