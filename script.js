@@ -26,6 +26,7 @@ refresh()
 }
 getTodayHour()
 
+
 function updateItemCount(elementId, count) {
     document.getElementById(elementId).textContent = count;
 }
