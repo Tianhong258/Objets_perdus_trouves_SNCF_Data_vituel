@@ -6,6 +6,7 @@
     <title>new look</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
+    <script src="graphique.js" defer></script>
 </head>
 <body>
         <!-- <section class="fullScreenSnap lostItems">
@@ -119,6 +120,7 @@
             <img class="information_screen_logo" src="/images/LOGO_SNCF_GROUPE_WEB.png"/>
         </div> -->
     </div>
+
     <div class = "third-screen">
         <h1 id="percentage"> Ces derniers six mois, <span id="percentageSixMonths"></span> % d'objets perdus ont été retrouvés</h1>
     </div>
@@ -716,6 +718,74 @@
             </div>
         </div>
     </div>
+    <div class="text_bubble_section">
+        <div class="left_bubble_container">
+            <div class="bubble_box_for_svg">
+                <svg class="left_bubble_tail" xmlns="http://www.w3.org/2000/svg" width="32" height="38" viewBox="0 0 32 38" fill="none">
+                    <path d="M14 19.5029C14 26.7029 4.33333 35.1696 0 37.5029C13.5664 37.5674 22.5556 32.8946 32 22.5L14 0V19.5029Z" fill="#E9E9EA"/>
+                  </svg>
+                <div class="bubble_frame grey_frame">
+                    <p class="bubble_text">Avez-vous pensé à emporter tous vos bagages ? Tout bagage oublié risque d’être détruit et occasionne des retards de trains. Merci de votre vigilance.</p>
+                </div>
+            </div>
+        </div>
+        <div class="left_bubble_container">
+            <div class="bubble_box_for_svg">
+                <svg class="left_bubble_tail" xmlns="http://www.w3.org/2000/svg" width="32" height="38" viewBox="0 0 32 38" fill="none">
+                    <path d="M14 19.5029C14 26.7029 4.33333 35.1696 0 37.5029C13.5664 37.5674 22.5556 32.8946 32 22.5L14 0V19.5029Z" fill="#E9E9EA"/>
+                  </svg>
+                <div class="bubble_frame grey_frame">
+                    <p class="bubble_text">Votre train 8122 partira avec 45 min de retard suite présence d’un bagage abandonné. Plus d'info sur SNCF Connect</p>
+                </div>
+            </div>
+        </div>
+        <div class="right_bubble_container">
+            <div class="bubble_box_for_svg">
+                <svg class="right_bubble_tail" xmlns="http://www.w3.org/2000/svg" width="33" height="38" viewBox="0 0 33 38" fill="none">
+                    <path d="M18.5 20.0015C18.5 27.2015 28.1667 35.6681 32.5 38.0015C18.9336 38.0659 9.94444 33.3931 0.5 22.9985L18.5 0.498535V20.0015Z" fill="#1287FF"/>
+                  </svg>
+                <div class="bubble_frame blue_frame">
+                    <p class="bubble_text">🤬🤬🤬🤬🤬🤬</p>
+                </div>
+            </div>
+        </div>
+        <div class="left_bubble_container">
+            <div class="bubble_box_for_svg">
+                <svg class="left_bubble_tail" xmlns="http://www.w3.org/2000/svg" width="32" height="38" viewBox="0 0 32 38" fill="none">
+                    <path d="M14 19.5029C14 26.7029 4.33333 35.1696 0 37.5029C13.5664 37.5674 22.5556 32.8946 32 22.5L14 0V19.5029Z" fill="#E9E9EA"/>
+                  </svg>
+                <div class="bubble_frame grey_frame">
+                    <p class="bubble_text">Nous arrivons en gare. Avez-vous pensé à prendre toutes vos affaires ? N’oubliez rien surtout !
+                        STOP SMS 36049</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="percentage_section">
+        <div class="tgv_top">
+        </div>
+        <div class="tgv_accent_colors">  
+        </div>
+        <div class="screen_area">
+            <div class="outer_screen_area">
+                <div class="inner_screen_area">
+                    <div class="percentage_screen">
+                        <h1 class="percentage_text">Au cours des 6 derniers mois,<br>33.89 pour cent des objets ont<br>été rendus à leurs propriétaires</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tgv_spacer">
+        </div>
+    </div>
+    <div class="screen-graph">
+        <h1>Graphique</h1>
+        <div class="canvas">
+            <canvas id="myChart"></canvas>
+          </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="path/to/chartjs/dist/chart.umd.js"></script>
 
 </body>
 </html>
