@@ -18,7 +18,7 @@ let currentTime = new Date()
 let diplayHour = document.querySelector(".gethour").innerHTML =
  String (currentTime.getHours()).padStart(2, '0') + 
 ":" + String(currentTime.getMinutes()).padStart(2, '0')
-console.log(diplayHour)
+// console.log(diplayHour)
 let diplaySecondes = document.querySelector(".clock_seconds");
 diplaySecondes.innerHTML = String(currentTime.getSeconds()).padStart(2, '0');
 
@@ -65,7 +65,7 @@ function sum(number){
 
 async function percentageSixMonths(){
     let resultSumLost
-    let resultSumFined
+    let resultSumFound
     await fetch("https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/objets-trouves-gares/records?select=COUNT(*)%20as%20count&group_by=RANGE(date%2C%201%20month)%20as%20date&order_by=date%20DESC&limit=6")
         .then(response => response.json())
         .then(data => {
@@ -81,14 +81,14 @@ async function percentageSixMonths(){
         .then(response => response.json())
         .then(data => {
             //console.log(data)
-            resultSumFined = sum(data)
-           //console.log(resultSumFined)
-           return resultSumFined
+            resultSumFound = sum(data)
+           //console.log(resultSumFound)
+           return resultSumFound
         })
         .catch(error => {
-            console.log(`Error fetching resultSumFined data:`, error);
+            console.log(`Error fetching resultSumFound data:`, error);
         });
-    let percentage = (resultSumFined/resultSumLost*100).toFixed(2)
+    let percentage = (resultSumFound/resultSumLost*100).toFixed(2)
     //console.log(percentage)
     document.getElementById("percentageSixMonths").innerHTML = percentage
     }
@@ -108,18 +108,24 @@ async function dataNantes(){
 
 async function autocomplete(inp) {
     let arrayStation = []
-        await fetch("https://www.data.gouv.fr/fr/datasets/r/2e0d498e-971a-428a-8756-48a4c130988b")
+    await fetch("https://www.data.gouv.fr/fr/datasets/r/521fe6f9-0f7f-4684-bb3f-7d3d88c581bb")
             .then(response => response.json())
             .then(data => {
                 console.log(data)
-                for(i=0;i<data.length;i++){
-                    if (data[i].fields.voyageurs != "N"){
-                        arrayStation.push(data[i].fields.libelle)
-                    }
+                let arr =[]
+                for(i=0;i<data.cities.length;i++){
+                    arr.push(data.cities[i].label)
                 }
+                console.log(arr)
+                for(x=0;x<arr.length;x++){
+                    if(arrayStation.indexOf(arr[x].trim())==-1){
+                        arrayStation.push(arr[x].trim())
+                }
+                }
+                console.log(arrayStation)
                 return arrayStation //get the list of stations in France
             })
-        console.log(arrayStation)
+        //console.log(arrayStation)
         /*the autocomplete function takes two arguments,
         the text field element and an array of possible autocompleted values:*/
         var currentFocus;
@@ -215,14 +221,30 @@ async function autocomplete(inp) {
           closeAllLists(e.target);
       });
       }
-//addEventListener: click =>fetch  les nom de gare =>distinguer c'est laquelle gare =>fetch ce gare retrouvé+perdu: aujourd'hui 
-
-
+      async function getStation(){
+        let station = document.querySelector("#searchStation").value
+        console.log(station)
+        let stationLost
+        let stationFound
+        await fetch(`https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/objets-trouves-gares/records?select=COUNT(*)%20as%20number%2C%20date&where=SEARCH(%22${station}%22)&group_by=RANGE(date%2C%201day)%20as%20date&order_by=date%20DESC&limit=1`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                stationLost = data.results[0].number
+                console.log(stationLost)
+                return stationLost
+            })
+        document.getElementById("stationLostToday").innerHTML = stationLost
+        await fetch(`https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/objets-trouves-restitution/records?select=COUNT(*)%20as%20number%2C%20date&where=SEARCH(%22${station}%22)&group_by=RANGE(date%2C%201%20day)%20as%20date&order_by=date%20DESC&limit=1`)
+            .then(response => response.json())
+            .then(data => {
+                stationFound = data.results[0].number
+                console.log(stationFound)
+                return stationFound
+            })
+        document.getElementById("stationFoundToday").innerHTML = stationFound
+    }
+   
 
 autocomplete(document.getElementById("searchStation"));
-             
-   
-        
-
-
 percentageSixMonths()
