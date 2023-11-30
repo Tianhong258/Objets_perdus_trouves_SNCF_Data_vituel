@@ -33,6 +33,13 @@
     font-style: normal;
   }
 
+  @font-face {
+    font-family: 'Avenir-Medium';
+    src: url('fonts/Avenir-Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
 html, body {
     margin: 0;
     padding: 0;
@@ -113,7 +120,7 @@ body {
     width: 376px;
     color: #FFF;
     text-align: center;
-    font-family: Achemine;
+    font-family: 'Achemine';
     font-size: 55px;
     font-style: normal;
     font-weight: 700;
@@ -192,7 +199,7 @@ body {
     transform-origin: right bottom;
     transform: translate(50%, -50%) rotate(180deg);
     color: #FFF;
-    font-family: Achemine;
+    font-family: 'Achemine';
     font-size: calc(17vh); /* Adjust as needed */
     font-weight: 700;
     line-height: normal;
@@ -213,7 +220,7 @@ body {
 
 .right_panel_text {
     color: #003A79;
-    font-family: Achemine;
+    font-family: 'Achemine';
     font-size: 52px;
     font-style: normal;
     font-weight: 400;
@@ -257,7 +264,7 @@ body {
     height: 47px;
     flex-shrink: 0;
     color: #FFF;
-    font-family: Achemine;
+    font-family: 'Achemine';
     font-size: 50px;
     font-style: normal;
     font-weight: 700;
@@ -270,7 +277,7 @@ body {
     height: 32px;
     flex-shrink: 0;
     color: #FFC052;
-    font-family: Achemine;
+    font-family: 'Achemine';
     font-size: 34px;
     font-style: normal;
     font-weight: 700;
@@ -292,7 +299,7 @@ body {
 
 .outer_info_text {
     color: #FFF;
-    font-family: Achemine;
+    font-family: 'Achemine';
     font-size: 30px;
     font-style: normal;
     font-weight: 700;
@@ -375,7 +382,7 @@ body {
 
 .exit_title {
     color: #FFF;
-    font-family: Achemine;
+    font-family: 'Achemine';
     font-size: 78px;
     font-style: normal;
     font-weight: 400;
@@ -419,7 +426,7 @@ body {
 
 .sign_text {
     color: #000;
-    font-family: Achemine;
+    font-family: 'Achemine';
     font-size: 40px;
     font-style: normal;
     font-weight: 400;
@@ -573,7 +580,7 @@ body {
 .led_text {
     color: #FDE933;
     text-shadow: 0px 0px 8.699999809265137px #FE7C18;
-    font-family: Transilien;
+    font-family: 'Transilien';
     line-height: 1;
     letter-spacing: 4.65px;
     max-height: 100%;
@@ -662,7 +669,7 @@ body {
     max-width: 513px;
     width: 100%; /* Ensures the text doesn't overflow its container if the content is wider */
     color: #000;
-    font-family: SF-Pro;
+    font-family: 'SF-Pro';
     font-size: 42px;
     font-style: normal;
     font-weight: 400;
@@ -756,7 +763,7 @@ body {
 .percentage_text {
     color: #FDE933;
     text-shadow: 0px 0px 8.699999809265137px #FE7C18;
-    font-family: Transilien;
+    font-family: 'Transilien';
     line-height: 1;
     /* max-height: 100%; */
     max-width: 100%;
@@ -772,13 +779,245 @@ body {
     background: #262D2D;
 }
 
+.poster_section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    background: #262D2D;
+    gap: 150px;
+}
+
+.poster {
+    display: flex;
+    height: auto;
+    padding: 100px;
+    flex-direction: column;
+    align-items: left;
+    background: #EEEEF0;
+    gap: 50px;
+}
+
+.left_tilt {
+    transform: rotate(-4.101deg);
+}
+
+.right_tilt {
+    transform: rotate(5.22deg);
+}
+
+.graph_area {
+    width: auto;
+    height: 95vh;
+    /* background: #EF5252; */
+}
+
+.bar_graph_area {
+    width: auto;
+    height: 60vh;
+    /* background: #EF5252; */
+}
+
+.pie_chart {
+    height: 100%;
+    width: 100%;
+}
+
+.bar_chart {
+    height: auto;
+    width: 80%;
+}
+
+.graph_poster_text {
+
+}
+
 /* Pie graph */
 .screen-graph {
+    display: flex;
+    flex-direction: column;
     width: 100vw;
     height: 100vh;
     object-fit: cover;
 }
+
 .canvas {
     width: 100%;
     object-fit: contain;
+}
+
+.input_section {
+    display: flex;
+    width: 100vw;
+    padding: var(--spacing-0, 0px);
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-0, 0px);
+    background: #FFF;
+}
+
+.navbar {
+    position: relative;
+    height: 4.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 63px;
+    align-self: stretch;
+    background: #0D131E;
+}
+
+.navbar_element {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-2, 10px);
+    align-self: stretch;
+}
+
+.navbar_text {
+    font-size: 1.1em;
+    font-weight: 300;
+    color: #FFF;
+    font-family: 'Avenir-Medium';
+}
+
+.sncf_connect_logo {
+    position: absolute;
+    left: 26px;
+    top: 0px;
+}
+
+.sncf_connect_banner {
+    display: flex;
+    width: 100vw;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+.sncf_connect_image {
+    width: 100%;
+}
+
+.search_area {
+    height: 20em;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    background: #0D131E;
+}
+
+.search_area_title {
+    color: #FFF;
+    font-family: 'Achemine';
+    font-size: 2em;
+}
+
+.search_bar {
+    width: 40em;
+    padding: 20px;
+    padding-left: 30px;
+    border: 1px solid #ccc;
+    border-radius: 100px;
+    box-sizing: border-box;
+    font-size: 1.3em;
+    font-family: 'Avenir-Medium';
+    position: relative;
+}
+
+.search_bar::placeholder {
+    font-size: 1em;
+    font-family: 'Avenir-Medium';
+}
+
+.autocomplete-items {
+    position: absolute;
+    width: 38em;
+    padding: 20px;
+    padding-left: 30px;
+    max-height: 400px;
+    overflow-y: auto; 
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    border-top: none;
+    box-sizing: border-box;
+    background-color: white;
+    font-size: 1.3em;
+    font-family: 'Avenir-Medium';
+    margin-top: 10px;
+    z-index: 1;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.autocomplete-items div {
+    margin-bottom: 10px;
+}
+
+.autocomplete-items div:hover {
+    background-color: #f4f4f4;
+}
+
+.results_area {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.results_area {
+    display: flex;
+    justify-content: space-around; /* Adjust as needed for spacing */
+    align-items: center;
+    width: 100%;
+    padding-top: 10em;
+    padding-bottom: 10em;
+}
+
+.result_half_screen {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.result_box {
+    display: inline-block;
+    padding: var(--spacing-0, 0px);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background: #14708A;
+    width: auto;
+    text-align: center;
+}
+
+.result_number_box {
+    padding: var(--spacing-0, 0px) 30px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background: #0D131E;
+}
+
+.result_number {
+    color: #8CE8FE;
+    font-family: 'Avenir-Medium';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10em;
+    margin: 0px;
+}
+
+.result_detail {
+    color: #FFF;
+    font-family: 'Avenir-Medium';
+    font-style: normal;
+    font-weight: 500;
 }

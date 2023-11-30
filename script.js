@@ -150,7 +150,28 @@ async function autocomplete(inp) {
                 b = document.createElement("DIV");
                 /*make the matching letters bold:*/
                 b.innerHTML = "<strong>" + arrayStation[i].substr(0, val.length) + "</strong>";
-                b.innerHTML += arrayStation[i].substr(val.length);
+                
+                // Capitalize city names
+                const cityName = arrayStation[i];
+                const capitalizedCity = cityName.substr(0, 1).toUpperCase() + cityName.substr(1).toLowerCase();
+
+                if (capitalizedCity.substr(0, val.length).toUpperCase() === val.toUpperCase()) {
+                    b.textContent = capitalizedCity; // Set the text content without manipulating HTML
+                    b.innerHTML += "<input type='hidden' value='" + capitalizedCity + "'>";
+                    b.addEventListener("click", function(e) {
+                        inp.value = this.getElementsByTagName("input")[0].value;
+                        closeAllLists();
+                        getStation(); // Trigger the action directly
+                    });
+                    a.appendChild(b);
+                    
+                    if (a.childNodes.length < 5) {
+                        a.appendChild(b);
+                    } else {
+                        break; // Exit loop once 5 options are added
+                    }
+                }
+                // b.innerHTML += arrayStation[i].substr(val.length);
                 /*insert a input field that will hold the current array item's value:*/
                 b.innerHTML += "<input type='hidden' value='" + arrayStation[i] + "'>";
                 /*execute a function when someone clicks on the item value (DIV element):*/
@@ -160,8 +181,18 @@ async function autocomplete(inp) {
                     /*close the list of autocompleted values,
                     (or any other open lists of autocompleted values:*/
                     closeAllLists();
+                    /* Trigger the action directly */
+                    getStation();
                 });
                 a.appendChild(b);
+                
+                // ADDITION HERE
+                if (a.childNodes.length < 5) {
+                    a.appendChild(b);
+                } else {
+                    break; // Exit loop once 5 options are added
+                }
+                // STOPS HERE
               }
             }
         });
@@ -221,29 +252,67 @@ async function autocomplete(inp) {
           closeAllLists(e.target);
       });
       }
-      async function getStation(){
-        let station = document.querySelector("#searchStation").value
-        console.log(station)
-        let stationLost
-        let stationFound
+    // async function getStation(){
+    //     let station = document.querySelector("#searchStation").value
+    //     console.log(station)
+    //     let stationLost
+    //     let stationFound
+    //     await fetch(`https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/objets-trouves-gares/records?select=COUNT(*)%20as%20number%2C%20date&where=SEARCH(%22${station}%22)&group_by=RANGE(date%2C%201day)%20as%20date&order_by=date%20DESC&limit=1`)
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             console.log(data)
+    //             stationLost = data.results[0].number
+    //             console.log(stationLost)
+    //             return stationLost
+    //         })
+    //     document.getElementById("stationLostToday").innerHTML = stationLost
+    //     await fetch(`https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/objets-trouves-restitution/records?select=COUNT(*)%20as%20number%2C%20date&where=SEARCH(%22${station}%22)&group_by=RANGE(date%2C%201%20day)%20as%20date&order_by=date%20DESC&limit=1`)
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             stationFound = data.results[0].number
+    //             console.log(stationFound)
+    //             return stationFound
+    //         })
+    //     document.getElementById("stationFoundToday").innerHTML = stationFound
+    // }
+    async function getStation() {
+        let station = document.querySelector("#searchStation").value;
+        console.log(station);
+    
+        // Initialize stationLost and stationFound with 0
+        let stationLost = 0;
+        let stationFound = 0;
+    
+        // Fetch station lost data
         await fetch(`https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/objets-trouves-gares/records?select=COUNT(*)%20as%20number%2C%20date&where=SEARCH(%22${station}%22)&group_by=RANGE(date%2C%201day)%20as%20date&order_by=date%20DESC&limit=1`)
             .then(response => response.json())
             .then(data => {
-                console.log(data)
-                stationLost = data.results[0].number
-                console.log(stationLost)
-                return stationLost
+                console.log(data);
+                stationLost = data.results[0].number || 0; // Update stationLost with API data or set it to 0
+                console.log(stationLost);
             })
-        document.getElementById("stationLostToday").innerHTML = stationLost
+            .catch(error => {
+                console.log(`Error fetching stationLost data:`, error);
+            });
+    
+        // Update stationLostToday span with stationLost value
+        document.getElementById("stationLostToday").innerHTML = stationLost;
+    
+        // Fetch station found data
         await fetch(`https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/objets-trouves-restitution/records?select=COUNT(*)%20as%20number%2C%20date&where=SEARCH(%22${station}%22)&group_by=RANGE(date%2C%201%20day)%20as%20date&order_by=date%20DESC&limit=1`)
             .then(response => response.json())
             .then(data => {
-                stationFound = data.results[0].number
-                console.log(stationFound)
-                return stationFound
+                stationFound = data.results[0].number || 0; // Update stationFound with API data or set it to 0
+                console.log(stationFound);
             })
-        document.getElementById("stationFoundToday").innerHTML = stationFound
+            .catch(error => {
+                console.log(`Error fetching stationFound data:`, error);
+            });
+    
+        // Update stationFoundToday span with stationFound value
+        document.getElementById("stationFoundToday").innerHTML = stationFound;
     }
+    
    
 
 autocomplete(document.getElementById("searchStation"));
