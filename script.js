@@ -60,13 +60,14 @@ function sum(number){
     for (i=0; i<number.results.length; i++){
         sum += number.results[i].count
     }
+    console.log(sum)
     return sum
 } //calculer les objets totals
 
-async function percentageSixMonths(){
+async function percentageHundredDays(){
     let resultSumLost
     let resultSumFound
-    await fetch("https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/objets-trouves-gares/records?select=COUNT(*)%20as%20count&group_by=RANGE(date%2C%201%20month)%20as%20date&order_by=date%20DESC&limit=6")
+    await fetch("https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/objets-trouves-gares/records?select=COUNT(*)%20AS%20count%2C%20date&group_by=RANGE(date%2C%2020%20days)%20AS%20date&order_by=date%20DESC&limit=5")
         .then(response => response.json())
         .then(data => {
             //console.log(data)
@@ -77,7 +78,7 @@ async function percentageSixMonths(){
         .catch(error => {
             console.log(`Error fetching resultSumLost data:`, error);
         });
-    await fetch("https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/objets-trouves-restitution/records?select=COUNT(*)%20as%20count&group_by=RANGE(date%2C%201%20month)%20as%20date&order_by=date%20DESC&limit=6")
+    await fetch("https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/objets-trouves-restitution/records?select=COUNT(*)%20AS%20count%2C%20date&group_by=RANGE(date%2C%2020%20days)%20AS%20date&order_by=date%20DESC&limit=5")
         .then(response => response.json())
         .then(data => {
             //console.log(data)
@@ -90,7 +91,7 @@ async function percentageSixMonths(){
         });
     let percentage = (resultSumFound/resultSumLost*100).toFixed(2)
     //console.log(percentage)
-    document.getElementById("percentageSixMonths").innerHTML = percentage
+    document.getElementById("percentageHundredDays").innerHTML = percentage
     }
 async function dataNantes(){
     await fetch("https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/objets-trouves-gares/records?select=date%2C%20COUNT(*)&where=%22Nantes%22&group_by=RANGE(date%2C%201%20day)%20as%20date&order_by=date%20DESC&limit=30")
@@ -284,7 +285,9 @@ async function autocomplete(inp) {
         let stationFound = 0;
     
         // Fetch station lost data
-        await fetch(`https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/objets-trouves-gares/records?select=COUNT(*)%20as%20number%2C%20date&where=SEARCH(%22${station}%22)&group_by=RANGE(date%2C%201day)%20as%20date&order_by=date%20DESC&limit=1`)
+        const todayDate = getTodaysDate();
+        const date = encodeURIComponent(todayDate);
+        await fetch(`https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/objets-trouves-gares/records?select=COUNT(*)%20as%20number&where=SEARCH(%22${station}%22)&limit=1&refine=date%3A%22${date}%22`)
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -299,7 +302,7 @@ async function autocomplete(inp) {
         document.getElementById("stationLostToday").innerHTML = stationLost;
     
         // Fetch station found data
-        await fetch(`https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/objets-trouves-restitution/records?select=COUNT(*)%20as%20number%2C%20date&where=SEARCH(%22${station}%22)&group_by=RANGE(date%2C%201%20day)%20as%20date&order_by=date%20DESC&limit=1`)
+        await fetch(`https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/objets-trouves-restitution/records?select=COUNT(*)%20as%20number&where=SEARCH(%22${station}%22)&group_by=RANGE(date%2C%201%20day)%20as%20date&order_by=date%20DESC&limit=1&refine=date%3A%22${date}%22`)
             .then(response => response.json())
             .then(data => {
                 stationFound = data.results[0].number || 0; // Update stationFound with API data or set it to 0
@@ -313,7 +316,8 @@ async function autocomplete(inp) {
         document.getElementById("stationFoundToday").innerHTML = stationFound;
     }
     
+       
    
 
 autocomplete(document.getElementById("searchStation"));
-percentageSixMonths()
+percentageHundredDays()
